@@ -29,7 +29,6 @@ public class Service {
             //успех
             return 1;
         }
-        //ошибка при выполнении операции
         return 0;
 
     }
@@ -40,10 +39,8 @@ public class Service {
         if (currentBalance > -1) {
             users.setCurrentBalance(currentBalance);
             save(users);
-            //успех
             return 1;
         }
-        //недостаточно средств
         return 0;
     }
 }
