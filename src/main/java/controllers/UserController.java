@@ -1,15 +1,17 @@
-package com.example.WebUsersAccount;
+package controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import services.UserService;
 
-@RestController("/users")
+
+@RequestMapping("/users")
 @RequiredArgsConstructor
-public class Controller {
+public class UserController {
 
-    private final Service Service;
+    private final UserService Service;
 
-    @GetMapping("/getbalance/{id}")
+    @GetMapping("/getBalance/{id}")
     public int getBalance(@PathVariable int id) {
         return Service.getBalance(id);
     }

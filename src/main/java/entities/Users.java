@@ -1,22 +1,22 @@
-package com.example.WebUsersAccount;
+package entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="bankaccount")
+@Table(name="users_account")
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idUser")
+    @Column(name="id")
     private int id;
 
-    @Column(name="nameUser")
+    @Column(name="name")
     private String name;
 
-    @Column(name="currentBalance")
-    private int currentBalance;
+    @Column(name="balance")
+    private int balance;
 
 }

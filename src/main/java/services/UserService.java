@@ -1,11 +1,13 @@
-package com.example.WebUsersAccount;
+package services;
 
+import entities.Users;
+import repositories.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
-public class Service {
+public class UserService {
 
     @Autowired
     private UsersRepository balanceRepository;
@@ -17,16 +19,15 @@ public class Service {
 
     public int getBalance(int id){
         Users users = balanceRepository.findById(id).orElseThrow();
-        return users.getCurrentBalance();
+        return users.getBalance();
     }
 
     public int putMoney(int id, int balance) {
         Users users = balanceRepository.findById(id).orElseThrow();
-        int currentBalance = users.getCurrentBalance() + balance;
+        int currentBalance = users.getBalance() + balance;
         if (currentBalance > -1) {
-            users.setCurrentBalance(currentBalance);
+            users.setBalance(currentBalance);
             save(users);
-            //успех
             return 1;
         }
         return 0;
@@ -35,9 +36,9 @@ public class Service {
 
     public int takeMoney(int id, int balance) {
         Users users = balanceRepository.findById(id).orElseThrow();
-        int currentBalance = users.getCurrentBalance() - balance;
+        int currentBalance = users.getBalance() - balance;
         if (currentBalance > -1) {
-            users.setCurrentBalance(currentBalance);
+            users.setBalance(currentBalance);
             save(users);
             return 1;
         }
