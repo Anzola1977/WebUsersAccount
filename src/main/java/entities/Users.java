@@ -5,18 +5,18 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="users_account")
+@Table(name = "users_account")
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="balance")
+    @Column(name = "balance")
     private int balance;
 
 }

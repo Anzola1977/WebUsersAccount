@@ -17,7 +17,7 @@ public class UserService {
         return balanceRepository.save(users);
     }
 
-    public int getBalance(int id){
+    public int getBalance(int id) {
         Users users = balanceRepository.findById(id).orElseThrow();
         return users.getBalance();
     }
@@ -31,7 +31,6 @@ public class UserService {
             return 1;
         }
         return 0;
-
     }
 
     public int takeMoney(int id, int balance) {
