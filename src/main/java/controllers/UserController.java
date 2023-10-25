@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import services.UserService;
 
 
-@RequestMapping("/users")
+//@RequestMapping("/users")
+@RestController
 @RequiredArgsConstructor
 public class UserController {
 
