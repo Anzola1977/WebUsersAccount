@@ -1,7 +1,7 @@
-package services;
+package com.example.WebUsersAccount.services;
 
-import entities.Users;
-import repositories.UsersRepository;
+import com.example.WebUsersAccount.entities.Users;
+import com.example.WebUsersAccount.repositories.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +17,7 @@ public class UserService {
         return balanceRepository.save(users);
     }
 
-    public int getBalance(int id){
+    public int getBalance(int id) {
         Users users = balanceRepository.findById(id).orElseThrow();
         return users.getBalance();
     }
@@ -31,7 +31,6 @@ public class UserService {
             return 1;
         }
         return 0;
-
     }
 
     public int takeMoney(int id, int balance) {

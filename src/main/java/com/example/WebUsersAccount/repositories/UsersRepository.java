@@ -1,6 +1,6 @@
-package repositories;
+package com.example.WebUsersAccount.repositories;
 
-import entities.Users;
+import com.example.WebUsersAccount.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
