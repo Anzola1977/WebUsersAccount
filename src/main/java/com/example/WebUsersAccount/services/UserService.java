@@ -1,7 +1,7 @@
-package services;
+package com.example.WebUsersAccount.services;
 
-import entities.Users;
-import repositories.UsersRepository;
+import com.example.WebUsersAccount.entities.Users;
+import com.example.WebUsersAccount.repositories.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 

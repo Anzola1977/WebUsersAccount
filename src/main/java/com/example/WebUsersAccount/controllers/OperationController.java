@@ -1,15 +1,13 @@
-package controllers;
+package com.example.WebUsersAccount.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import services.UserService;
+import com.example.WebUsersAccount.services.UserService;
 
-
-//@RequestMapping("/users")
+@RequestMapping("/list_of_operations")
 @RestController
 @RequiredArgsConstructor
-public class UserController {
-
+public class OperationController {
     private final UserService Service;
 
     @GetMapping("/getBalance/{id}")
@@ -22,10 +20,4 @@ public class UserController {
         Service.putMoney(id, amount);
     }
 
-    @PutMapping("/takeMoney")
-    public void takeMoney(@RequestParam int id, @RequestParam int amount) {
-        Service.takeMoney(id, amount);
-
-    }
 }
-
