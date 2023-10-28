@@ -1,23 +1,21 @@
 package com.example.WebUsersAccount.controllers;
 
+import com.example.WebUsersAccount.entities.ListOfOperations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import com.example.WebUsersAccount.services.UserService;
+
+import java.sql.Timestamp;
 
 @RequestMapping("/list_of_operations")
 @RestController
 @RequiredArgsConstructor
 public class OperationController {
+
     private final UserService Service;
 
-    @GetMapping("/getBalance/{id}")
-    public int getBalance(@PathVariable int id) {
-        return Service.getBalance(id);
+    @GetMapping("/getListOfOperations/{timeOfOperation}")
+    public ListOfOperations getListOfOperations(@RequestParam Timestamp timeOfOperation) {
+        return Service.getListOfOperations(timeOfOperation);
     }
-
-    @PutMapping("/putMoney")
-    public void putMoney(@RequestParam int id, @RequestParam int amount) {
-        Service.putMoney(id, amount);
-    }
-
 }

@@ -25,7 +25,8 @@ public class UserController {
     @PutMapping("/takeMoney")
     public void takeMoney(@RequestParam int id, @RequestParam int amount) {
         Service.takeMoney(id, amount);
-
     }
+
+
 }
 
