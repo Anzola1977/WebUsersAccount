@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Service
 @RequiredArgsConstructor
@@ -18,9 +18,6 @@ public class UserService {
 
     @Autowired
     ListOfOperations listOfOperations;
-
-    @Autowired
-    Users users;
 
     @Autowired
     private UsersRepository balanceRepository;
@@ -37,8 +34,8 @@ public class UserService {
     }
 
     public int getBalance(int id) {
-        Timestamp time = Timestamp.from(Instant.now());
-        users = balanceRepository.findById(id).orElseThrow();
+        LocalDate time = LocalDate.now();
+        Users users = balanceRepository.findById(id).orElseThrow();
         listOfOperations.setTimeOfOperation(time);
         listOfOperations.setType_operation(Type_operation.GET);
         listOfOperations.setUsers(balanceRepository.getReferenceById(id));
@@ -47,8 +44,8 @@ public class UserService {
     }
 
     public int putMoney(int id, int amount) {
-        users = balanceRepository.findById(id).orElseThrow();
-        Timestamp time = Timestamp.from(Instant.now());
+        Users users = balanceRepository.findById(id).orElseThrow();
+        LocalDate time = LocalDate.now();
         int currentBalance = users.getBalance() + amount;
         if (currentBalance > -1) {
             listOfOperations.setSumOfOperation(amount);
@@ -64,8 +61,8 @@ public class UserService {
     }
 
     public int takeMoney(int id, int amount) {
-        Timestamp time = Timestamp.from(Instant.now());
-        users = balanceRepository.findById(id).orElseThrow();
+        LocalDate time = LocalDate.now();
+        Users users = balanceRepository.findById(id).orElseThrow();
         int currentBalance = users.getBalance() - amount;
         if (currentBalance > -1) {
             users.setBalance(currentBalance);
@@ -80,8 +77,15 @@ public class UserService {
         return 0;
     }
 
-    public ListOfOperations getListOfOperations(Timestamp timestamp){
-        listOfOperations = listOfOperationsRepository.getReferenceById(timestamp);
+    public ListOfOperations getListOfOperationsCertainTime(LocalDate timeOfOperationStart, LocalDate timeOfOperationEnd){
+        Period time = Period.between(timeOfOperationStart, timeOfOperationEnd);
+        listOfOperations = listOfOperationsRepository.getReferenceById(time);
+        return listOfOperations;
+    }
+
+    public ListOfOperations getListOfOperationsAllTime(){
+        Period time =  Period.between(LocalDate.EPOCH, LocalDate.now());
+        listOfOperations = listOfOperationsRepository.getReferenceById(time);
         return listOfOperations;
     }
 }

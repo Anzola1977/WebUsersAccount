@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import com.example.WebUsersAccount.services.UserService;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @RequestMapping("/list_of_operations")
 @RestController
@@ -14,8 +14,13 @@ public class OperationController {
 
     private final UserService Service;
 
-    @GetMapping("/getListOfOperations/{timeOfOperation}")
-    public ListOfOperations getListOfOperations(@RequestParam Timestamp timeOfOperation) {
-        return Service.getListOfOperations(timeOfOperation);
+    @GetMapping("/getListOfOperationsCertainTime/{timeOfOperations}")
+    public ListOfOperations getListOfOperationsCertainTime(@RequestParam LocalDate timeOfOperationStart, @RequestParam LocalDate timeOfOperationEnd) {
+        return Service.getListOfOperationsCertainTime(timeOfOperationStart, timeOfOperationEnd);
+    }
+
+    @GetMapping("/getListOfOperationsAllTime")
+    public ListOfOperations getListOfOperationsAllTime() {
+        return Service.getListOfOperationsAllTime();
     }
 }
