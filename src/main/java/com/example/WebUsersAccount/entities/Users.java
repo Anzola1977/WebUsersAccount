@@ -9,7 +9,7 @@ import lombok.Data;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -18,5 +18,4 @@ public class Users {
 
     @Column(name = "balance")
     private int balance;
-
 }

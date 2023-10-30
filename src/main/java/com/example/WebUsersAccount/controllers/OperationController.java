@@ -21,6 +21,6 @@ public class OperationController {
 
     @GetMapping("/getListOfOperationsAllTime")
     public ListOfOperations getListOfOperationsAllTime() {
-        return Service.getListOfOperationsAllTime();
+        return Service.getListOfOperationsAllTime();/////
     }
 }

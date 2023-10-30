@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 
 @Service
@@ -34,10 +36,10 @@ public class UserService {
     }
 
     public int getBalance(int id) {
-        LocalDate time = LocalDate.now();
+        LocalDateTime time = LocalDateTime.now();
         Users users = balanceRepository.findById(id).orElseThrow();
         listOfOperations.setTimeOfOperation(time);
-        listOfOperations.setType_operation(Type_operation.GET);
+        listOfOperations.setType_operation("GET BALANCE");
         listOfOperations.setUsers(balanceRepository.getReferenceById(id));
         save(listOfOperations);
         return users.getBalance();
@@ -45,12 +47,12 @@ public class UserService {
 
     public int putMoney(int id, int amount) {
         Users users = balanceRepository.findById(id).orElseThrow();
-        LocalDate time = LocalDate.now();
+        LocalDateTime time = LocalDateTime.now();
         int currentBalance = users.getBalance() + amount;
         if (currentBalance > -1) {
             listOfOperations.setSumOfOperation(amount);
             listOfOperations.setTimeOfOperation(time);
-            listOfOperations.setType_operation(Type_operation.PUT);
+            listOfOperations.setType_operation("PUT MONEY");
             listOfOperations.setUsers(balanceRepository.getReferenceById(id));
             users.setBalance(currentBalance);
             save(users);
@@ -61,14 +63,14 @@ public class UserService {
     }
 
     public int takeMoney(int id, int amount) {
-        LocalDate time = LocalDate.now();
+        LocalDateTime time = LocalDateTime.now();
         Users users = balanceRepository.findById(id).orElseThrow();
         int currentBalance = users.getBalance() - amount;
         if (currentBalance > -1) {
             users.setBalance(currentBalance);
             listOfOperations.setSumOfOperation(amount);
             listOfOperations.setTimeOfOperation(time);
-            listOfOperations.setType_operation(Type_operation.TAKE);
+            listOfOperations.setType_operation("TAKE MONEY");
             listOfOperations.setUsers(balanceRepository.getReferenceById(id));
             save(listOfOperations);
             save(users);
@@ -84,8 +86,10 @@ public class UserService {
     }
 
     public ListOfOperations getListOfOperationsAllTime(){
+
         Period time =  Period.between(LocalDate.EPOCH, LocalDate.now());
-        listOfOperations = listOfOperationsRepository.getReferenceById(time);
+        //listOfOperations.getTimeOfOperation().)
+        listOfOperations = listOfOperationsRepository.getReferenceById(time);////
         return listOfOperations;
     }
 }
