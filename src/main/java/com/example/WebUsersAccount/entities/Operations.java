@@ -1,16 +1,15 @@
 package com.example.WebUsersAccount.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
-
 
 @Entity
 @Component
 @Table(name = "list_of_operations")
 public class Operations {
+
 
         @Getter
         @Id
@@ -33,10 +32,6 @@ public class Operations {
         @Getter
         @Column(name = "sum_operation")
         private int sumOfOperation;
-
-        public void setIdOperation(int idOperation) {
-                this.idOperation = idOperation;
-        }
 
         public void setUsers(Users users) {
                 this.users = users;

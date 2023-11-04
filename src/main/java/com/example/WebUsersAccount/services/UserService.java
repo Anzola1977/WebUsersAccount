@@ -81,6 +81,30 @@ public class UserService {
         return 0;
     }
 
+    public int transferMoney(int idRecipient, int idSender, int amount){
+        LocalDateTime time = LocalDateTime.now();
+        Users usersRecipient = balanceRepository.findById(idRecipient).orElseThrow();
+        Users usersSender = balanceRepository.findById(idSender).orElseThrow();
+        Operations operations = new Operations();
+        int currentBalanceRecipient = usersRecipient.getBalance() + amount;
+        int currentBalanceSender = usersSender.getBalance() - amount;
+        if (currentBalanceSender > -1) {
+            usersSender.setBalance(currentBalanceSender);
+            usersRecipient.setBalance(currentBalanceRecipient);
+            operations.setSumOfOperation(amount);
+            operations.setTimeOfOperation(time);
+            operations.setType_operation("TRANSFER MONEY from user_id " + idSender + " to user_id " + idRecipient);
+            operations.setUsers(usersSender);
+//            operations.setUsers(balanceRepository.getReferenceById(idSender));
+            operationsList.add(operations);
+            save(operations);
+            save(usersSender);
+            save(usersRecipient);
+            return 1;
+        }
+        return 0;
+    }
+
     public List<Operations> getListOfOperationsCertainTime(LocalDateTime timeOfOperationStart, LocalDateTime timeOfOperationEnd){
         operationsList = operationsRepository.findByTimeOfOperationBetween(timeOfOperationStart, timeOfOperationEnd);
         return operationsList;
